@@ -1,0 +1,8 @@
+version: '3'
+services:
+  reward-points:
+    restart: on-failure
+    container_name: reward-points
+    build: .
+    ports:
+     - 8080:8080

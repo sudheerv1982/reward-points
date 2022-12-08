@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+	<Properties>
+		<Property name="log-path">logs</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console-Appender" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+		</Console>
+		<RollingFile name="RollingFile-Appender"
+			fileName="${log-path}/reward-points.log"
+			filePattern="${log-path}/reward-points.%d{yyyy-MM-dd}.log">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="25 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="60" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.charter.retail.rewardpoints" level="info,error" additivity="false">
+			<AppenderRef ref="RollingFile-Appender" level="info,error" />
+			<AppenderRef ref="Console-Appender" level="info" />
+		</Logger>
+		<Root level="info">
+			<AppenderRef ref="RollingFile-Appender" />
+			<AppenderRef ref="Console-Appender" />
+		</Root>
+	</Loggers>
+</Configuration>
